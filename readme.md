@@ -1,43 +1,94 @@
-German-to-English Neural Machine Translation (NMT) Model
-🚀 An Encoder-Decoder model for translating German text to English using TensorFlow and Keras.
+# 🇩🇪➜🇬🇧 German-to-English Translation Model  
 
-🔍 Overview
-This project implements a Neural Machine Translation (NMT) model using an Encoder-Decoder architecture with GRUs. The model is trained on the Europarl dataset and leverages embedding layers, recurrent layers, and sequence-to-sequence learning to translate German text into English.
+This project implements a **Neural Machine Translation (NMT) model** using a **sequence-to-sequence (seq2seq) Encoder-Decoder architecture** with **GRU layers**. The model translates sentences from **German** to **English**.
 
-📌 Features
-✅ Encoder-Decoder architecture with GRU layers
-✅ Custom tokenizer for sequence preprocessing
-✅ Uses start ("ssss") and end ("eeee") tokens for structured decoding
-✅ Trained using Adam optimizer and Sparse Categorical Crossentropy
-✅ Implements early stopping and checkpointing for model optimization
+---
 
-🛠️ Model Architecture
-Encoder:
-Embedding layer to convert tokens into dense representations
-Three stacked GRU layers to capture long-term dependencies
-Outputs a context vector (final hidden state)
-Decoder:
-Embedding layer for target language
-Three GRU layers, initialized with the encoder's context vector
-Dense layer with a softmax activation for word prediction
+## 🚀 Features  
+✔️ Implements **Encoder-Decoder** architecture using **TensorFlow & Keras**  
+✔️ Uses **Gated Recurrent Units (GRU)** for sequential text processing  
+✔️ **Custom Tokenizer** for efficient text preprocessing  
+✔️ **Start (`<start>`) & End (`<end>`) tokens** for sequence learning  
+✔️ Trained on the **Europarl dataset** with **50,000 sentence pairs**  
 
-📂 Dataset
-The Europarl corpus is used for training, containing German-English sentence pairs.
+---
 
-The German text is tokenized, padded, and reversed to improve performance.
-The English text is prepended with "ssss" and appended with "eeee" to aid decoding.
+## 📊 Model Architecture  
 
-📈 Training & Performance
-Optimizer: Adam
-Loss Function: Sparse Categorical Crossentropy
-Metrics: Accuracy
-Batch Size: 384
-Validation Split: 10%
+The translation model follows a **sequence-to-sequence (seq2seq) architecture** with an **Encoder-Decoder** structure.
 
-📝 Future Improvements
-🔹 Implement Transformer-based models.
-🔹 Add Beam Search or Top-K Sampling for improved translations.
-🔹 Train on larger parallel datasets for better accuracy.
+### **1️⃣ Encoder**  
+The **encoder** processes the input German sentence and generates a **context vector** that summarizes the sequence.  
 
-📜 License
-This project is released under the MIT License.
+- **Embedding Layer:** Converts words into dense vectors (`128` dimensions).  
+- **3 Stacked GRU Layers:** Extract contextual dependencies and generate a **context vector**.  
+- The **final hidden state** of the last GRU layer is passed to the **decoder** as an initial state.  
+
+📌 **Purpose:** Encodes the German sentence into a fixed-length representation.  
+
+---
+
+### **2️⃣ Decoder**  
+The **decoder** generates the English translation **word by word**, using the **context vector** from the encoder.  
+
+- **Embedding Layer:** Converts the English tokens into dense vectors.  
+- **3 Stacked GRU Layers:** Process the input tokens and generate output sequences.  
+- **Dense Layer with Softmax Activation:** Predicts the probability distribution of the next word.  
+
+📌 **Purpose:** Decodes the German sentence into an English translation.  
+
+---
+
+### **3️⃣ Model Flow**  
+1. The **encoder** takes the German sentence and generates a **context vector**.  
+2. The **decoder** uses this context vector and an initial `<start>` token to generate words.  
+3. It predicts the next word in the English sentence **sequentially** until the `<end>` token is reached.  
+
+---
+
+### **4️⃣ Model Summary**  
+
+| Component       | Layers & Features |
+|----------------|------------------|
+| **Encoder**    | Embedding Layer → 3 GRU Layers → Context Vector |
+| **Decoder**    | Embedding Layer → 3 GRU Layers → Dense Layer (Softmax) |
+| **Activation** | Softmax (for final output word selection) |
+| **Loss Function** | Sparse Categorical Crossentropy |
+| **Optimizer** | Adam |
+
+---
+
+### **5️⃣ Model Diagram**  
+
+            [ Input: German Sentence ]  
+                        │  
+                        ▼  
+┌────────────────────────────────────────────┐  
+│                ENCODER                     │  
+│ Embedding → GRU1 → GRU2 → GRU3 → Context   │  
+└────────────────────────────────────────────┘  
+                        │  
+                        ▼  
+┌────────────────────────────────────────────┐  
+│                DECODER                     │  
+│ Embedding → GRU1 → GRU2 → GRU3 → Dense(Softmax) │  
+└────────────────────────────────────────────┘  
+                        │  
+                        ▼  
+            [ Output: English Sentence ]
+
+### **Dataset**
+The model is trained on the Europarl dataset, a parallel corpus of German-English sentence pairs.
+
+**Preprocessing Steps**
+Tokenization of German and English text
+Padding sequences for uniform input length
+Adding <start> and <end> tokens
+
+
+### **📜 License**
+This project is open-source and licensed under the MIT License.
+
+### **👨‍💻 Author**
+Developed by Ashish Jain
+🔗 GitHub: ashish-ai-10
