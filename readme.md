@@ -1,4 +1,4 @@
-# 🇩🇪➜🇬🇧 German-to-English Translation Model  
+# German-to-English Translation Model  
 
 This project implements a **Neural Machine Translation (NMT) model** using a **sequence-to-sequence (seq2seq) Encoder-Decoder architecture** with **GRU layers**. The model translates sentences from **German** to **English**.
 
@@ -58,27 +58,8 @@ The **decoder** generates the English translation **word by word**, using the **
 
 ---
 
-### **5️⃣ Model Diagram**  
-
-            [ Input: German Sentence ]  
-                        │  
-                        ▼  
-┌────────────────────────────────────────────┐  
-│                ENCODER                     │  
-│ Embedding → GRU1 → GRU2 → GRU3 → Context   │  
-└────────────────────────────────────────────┘  
-                        │  
-                        ▼  
-┌────────────────────────────────────────────┐  
-│                DECODER                     │  
-│ Embedding → GRU1 → GRU2 → GRU3 → Dense(Softmax) │  
-└────────────────────────────────────────────┘  
-                        │  
-                        ▼  
-            [ Output: English Sentence ]
-
 ### **Dataset**
-The model is trained on the Europarl dataset, a parallel corpus of German-English sentence pairs.
+The model is trained on the Europarl dataset, a parallel corpus of German-English sentence pairs. (https://www.statmt.org/europarl/)
 
 **Preprocessing Steps**
 Tokenization of German and English text
